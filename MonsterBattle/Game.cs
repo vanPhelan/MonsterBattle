@@ -25,10 +25,10 @@ namespace MonsterBattle
             //Monster 3
             Monster skeleton = new Monster { name = "Skeleton", attack = 20, defense = 5, health = 10 };
 
-            Fight(goblin, slime);
-            Fight(slime, goblin);
-            Fight(skeleton, goblin);
-            Fight(skeleton, slime);
+            Fight(ref goblin, ref slime);
+            Fight(ref slime, ref goblin);
+            Fight(ref skeleton, ref goblin);
+            Fight(ref skeleton, ref slime);
         }
 
         float CalculateDamage(float attack, float defense)
@@ -43,7 +43,7 @@ namespace MonsterBattle
             return attacker.attack - defender.defense;
         }
 
-        void Fight(Monster attacker, Monster defender)
+        void Fight(ref Monster attacker, ref Monster defender)
         {
             Console.WriteLine(attacker.name + " attacks " + defender.name + "!");
             float damageTaken = CalculateDamage(attacker, defender);
