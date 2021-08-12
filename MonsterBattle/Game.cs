@@ -6,6 +6,7 @@ namespace MonsterBattle
 {
     struct Monster
     {
+        public string name;
         public float attack;
         public float defense;
         public float health;
@@ -16,33 +17,18 @@ namespace MonsterBattle
         public void Run()
         {
             //Monster 1
-            Monster goblin = new Monster { attack = 10, defense = 5, health = 20 };
+            Monster goblin = new Monster { name = "Goblin", attack = 10, defense = 5, health = 20 };
 
             //Monster 2
-            Monster slime = new Monster { attack = 15, defense = 10, health = 15 };
+            Monster slime = new Monster { name = "Slime", attack = 15, defense = 10, health = 15 };
 
             //Monster 3
-            Monster skeleton = new Monster { attack = 20, defense = 5, health = 10 };
+            Monster skeleton = new Monster { name = "Skeleton", attack = 20, defense = 5, health = 10 };
 
-            //Monster 1 attacks Monster 2
-            float damageTaken = CalculateDamage(goblin.attack, slime.defense);
-            slime.health = slime.health - damageTaken;
-            Console.WriteLine("Slime has taken " + damageTaken + " damage and has " + slime.health + " health remaining.");
-
-            //Monster 2 attacks Monster 1
-            damageTaken = CalculateDamage(slime.attack, goblin.defense);
-            goblin.health = goblin.health - damageTaken;
-            Console.WriteLine("Goblin has taken " + damageTaken + " damage and has " + goblin.health + " health remaining.");
-
-            //Monster 3 attacks Monster 1
-            damageTaken = CalculateDamage(skeleton, goblin);
-            goblin.health -= damageTaken;
-            Console.WriteLine("Goblin has taken " + damageTaken + " damage and has " + goblin.health + " health remaining.");
-
-            //Monster 3 attacks Monster 2
-            damageTaken = CalculateDamage(skeleton, slime);
-            slime.health -= damageTaken;
-            Console.WriteLine("Slime has taken " + damageTaken + " damage and has " + slime.health + " health remaining.");
+            Fight(goblin, slime);
+            Fight(slime, goblin);
+            Fight(skeleton, goblin);
+            Fight(skeleton, slime);
         }
 
         float CalculateDamage(float attack, float defense)
@@ -56,5 +42,15 @@ namespace MonsterBattle
         {
             return attacker.attack - defender.defense;
         }
+
+        void Fight(Monster attacker, Monster defender)
+        {
+            Console.WriteLine(attacker.name + " attacks " + defender.name + "!");
+            float damageTaken = CalculateDamage(attacker, defender);
+            defender.health -= damageTaken;
+            Console.WriteLine(defender.name + " has taken " + damageTaken + " damage and has " + defender.health + " health remaining.");
+        }
+
+
     }
 }
